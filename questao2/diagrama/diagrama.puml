@@ -1,0 +1,50 @@
+@startuml
+interface FabricaPais {
+  criarDocumentoFiscal() : DocumentoFiscal
+  criarPagamento() : Pagamento
+  criarComprovante() : Comprovante
+}
+class FabricaBrasil
+class FabricaChile
+
+interface DocumentoFiscal
+interface Pagamento
+interface Comprovante
+
+class NFSe
+class PagamentoPix
+class ComprovanteCPF
+class BoletaElectronica
+class PagamentoWebpay
+class ComprovanteRUT
+
+class Aluno
+class Matricula {
+  + Matricula(aluno, valor, fabrica)
+  + confirmar()
+}
+class Main
+
+FabricaPais <|.. FabricaBrasil
+FabricaPais <|.. FabricaChile
+DocumentoFiscal <|.. NFSe
+DocumentoFiscal <|.. BoletaElectronica
+Pagamento <|.. PagamentoPix
+Pagamento <|.. PagamentoWebpay
+Comprovante <|.. ComprovanteCPF
+Comprovante <|.. ComprovanteRUT
+
+FabricaBrasil ..> NFSe
+FabricaBrasil ..> PagamentoPix
+FabricaBrasil ..> ComprovanteCPF
+FabricaChile ..> BoletaElectronica
+FabricaChile ..> PagamentoWebpay
+FabricaChile ..> ComprovanteRUT
+
+Matricula --> FabricaPais
+Matricula --> Aluno
+Matricula ..> DocumentoFiscal
+Matricula ..> Pagamento
+Matricula ..> Comprovante
+Main ..> Matricula
+@enduml
