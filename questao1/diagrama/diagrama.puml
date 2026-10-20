@@ -1,0 +1,32 @@
+@startuml
+interface Passagem {
+  getModal()
+  getPassageiro()
+  calcularTaxaEmbarque()
+  getDocumentos()
+}
+class PassagemAerea
+class PassagemRodoviaria
+class PassagemFerroviaria
+
+abstract class EmissorPassagem {
+  + emitir(passageiro, tarifa) {final}
+  # criarPassagem(passageiro, tarifa) : Passagem {abstract}
+}
+class EmissorAereo
+class EmissorRodoviario
+class EmissorFerroviario
+class Main
+
+Passagem <|.. PassagemAerea
+Passagem <|.. PassagemRodoviaria
+Passagem <|.. PassagemFerroviaria
+EmissorPassagem <|-- EmissorAereo
+EmissorPassagem <|-- EmissorRodoviario
+EmissorPassagem <|-- EmissorFerroviario
+EmissorPassagem ..> Passagem
+EmissorAereo ..> PassagemAerea : cria
+EmissorRodoviario ..> PassagemRodoviaria : cria
+EmissorFerroviario ..> PassagemFerroviaria : cria
+Main ..> EmissorPassagem
+@enduml
